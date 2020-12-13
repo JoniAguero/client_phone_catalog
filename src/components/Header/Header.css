@@ -1,0 +1,10 @@
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  background-color: #e7a61a;
+  -webkit-box-shadow: 10px 10px 16px -8px rgba(0,0,0,0.3);
+  -moz-box-shadow: 10px 10px 16px -8px rgba(0,0,0,0.3);
+  box-shadow: 10px 10px 16px -8px rgba(0,0,0,0.3);
+}
