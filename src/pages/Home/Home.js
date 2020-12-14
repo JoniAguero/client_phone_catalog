@@ -7,6 +7,7 @@ import PlaceholderCard from "../../components/Loading/PlaceholderCard";
 import CardPhone from "../../components/CardPhone";
 import { Card } from "semantic-ui-react";
 import NoDataFound from "../../components/NoDataFound";
+
 export const Home = () => {
 
   const [loading, setLoading] = useState(true)
@@ -32,7 +33,7 @@ export const Home = () => {
 
   return (
     <div className="container-home">
-      <Card.Group itemsPerRow={3}>
+      <Card.Group itemsPerRow={3} stackable doubling>
         { 
           phones.list.length === 0 ? <NoDataFound /> : 
           phones.list.reverse().map(element => 

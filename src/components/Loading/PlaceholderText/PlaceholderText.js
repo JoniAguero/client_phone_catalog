@@ -1,3 +1,4 @@
+import { map } from 'lodash';
 import React from 'react'
 import { Placeholder } from "semantic-ui-react"
 
@@ -9,9 +10,9 @@ const PlaceholderText = () => {
         <Placeholder.Line />
       </Placeholder.Header>
       <Placeholder.Paragraph>
+      {map(Array(50), () => (
         <Placeholder.Line />
-        <Placeholder.Line />
-        <Placeholder.Line />
+      ))}
       </Placeholder.Paragraph>
     </Placeholder>
   )

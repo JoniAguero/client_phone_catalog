@@ -18,6 +18,16 @@ export default (state = initialState, action) => {
         ...state,
         list: action.payload
       }
+    case types.fetchPhoneByID:
+      return {
+        ...state
+      }
+
+    case types.fetchPhoneSuccessById:
+      return {
+        ...state,
+        phoneSelected: action.payload
+      }
 
     default:
       return state

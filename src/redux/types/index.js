@@ -2,7 +2,10 @@ export const types = {
 
   setError: '[Error] Error detected',
 
-  fetchPhones: '[Phones] Fetch Phone',
-  fetchPhonesSuccess: '[Phones] Fetch Success Phone',
+  fetchPhones: '[Phones] Fetch Phones',
+  fetchPhonesSuccess: '[Phones] Fetch Success Phones',
+
+  fetchPhoneByID: '[Phones] Fetch Phone by ID',
+  fetchPhoneSuccessById: '[Phones] Fetch Success Phone by ID',
 
 }

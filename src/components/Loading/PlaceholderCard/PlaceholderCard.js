@@ -4,7 +4,7 @@ import { Card, Placeholder } from "semantic-ui-react"
 
 const PlaceholderCard = () => {
   return (
-    <Card.Group itemsPerRow={3}>
+    <Card.Group itemsPerRow={3} stackable doubling>
       {map([1, 2 ,3], (card, index) => (
         <Card key={index}>
           <Placeholder>
