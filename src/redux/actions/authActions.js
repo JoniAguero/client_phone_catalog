@@ -1,22 +1,29 @@
 import { fetchWithToken, fetchWithoutToken } from '../../services/fetch'
 import { types } from '../../redux/types'
+import { setError } from './errorsActions'
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
     const resp = await fetchWithoutToken('auth', { email, password }, 'POST')
     const body = await resp.json()
+    try {
+      if (body.ok) {
+        localStorage.setItem('token', body.token)
+        localStorage.setItem('token-init-date', new Date().getTime())
 
-    if (body.ok) {
-      localStorage.setItem('token', body.token)
-      localStorage.setItem('token-init-date', new Date().getTime())
-
-      dispatch(
-        login({
-          uid: body.uid,
-          name: body.name,
-        })
-      )
+        dispatch(
+          login({
+            uid: body.uid,
+            name: body.name,
+          })
+        )
+      } else {
+        dispatch(setError(body.msg))
+      }
+    } catch (error) {
+      dispatch(setError(error))
     }
+    
   }
 }
 

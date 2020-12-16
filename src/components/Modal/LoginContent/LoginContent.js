@@ -1,11 +1,11 @@
 import { map } from "lodash"
 import React from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useFormHook } from "../../../hooks/useForm"
 import InputField from "../../InputField/InputField"
 import "./LoginContent.css"
 import { startLogin } from "../../../redux/actions/authActions"
-
+import { useSnackbar } from 'react-simple-snackbar'
 import { Formik } from "formik"
 import * as Yup from "yup"
 import {
@@ -14,7 +14,12 @@ import {
 } from "formik-semantic-ui-react"
 
 const LoginContent = (props) => {
+  
   const dispatch = useDispatch()
+  const { errors } = useSelector( state => state )
+
+  const [openSnackbar] = useSnackbar()
+
   const { handleClick } = props
   const [formLoginValues, handleLoginInputChange] = useFormHook({
     email: "",
@@ -27,20 +32,20 @@ const LoginContent = (props) => {
     { 
       id: "input-email",
       placeholder: "Email",
-      iconName: "at",
-      inputName: "email",
-      inputType: "text",
-      inputValue: email,
-      handleChange: handleLoginInputChange,
+      icon: "at",
+      name: "email",
+      type: "text",
+      value: email,
+      onChange: handleLoginInputChange,
     },
     { 
       id: "input-password",
       placeholder: "Password",
-      iconName: "user secret",
-      inputName: "password",
-      inputType: "password",
-      inputValue: password,
-      handleChange: handleLoginInputChange,
+      icon: "user secret",
+      name: "password",
+      type: "password",
+      value: password,
+      onChange: handleLoginInputChange,
     },
   ]
 
@@ -58,25 +63,27 @@ const LoginContent = (props) => {
 
   const onHandleSubmit = () => {
     dispatch(startLogin(email, password))
+    if(errors) {
+      openSnackbar(errors.error)
+    }
   }
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={onHandleSubmit}
+      onSubmit={(_, { setSubmitting }) => {
+        onHandleSubmit()
+        setTimeout(() => {
+          setSubmitting(false);
+        }, 1000);
+      }}
     >
       <Form size="large">
         {map(configForm, (el, index) => (
           <InputField
-            id={el.id}
             key={index}
-            inputType={el.inputType}
-            placeholder={el.placeholder}
-            iconName={el.iconName}
-            inputName={el.inputName}
-            inputValue={el.inputValue}
-            handleChange={el.handleChange}
+            {...el}
           />
         ))}
         <div className="container-text-register" onClick={handleClick}>

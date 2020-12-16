@@ -1,7 +1,7 @@
 import { Form, SubmitButton } from "formik-semantic-ui-react"
 import { map } from "lodash"
 import React from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useFormHook } from "../../../hooks/useForm"
 import { startRegister } from "../../../redux/actions/authActions"
 import InputField from "../../InputField/InputField"
@@ -9,6 +9,7 @@ import "./RegisterContent.css"
 
 import { Formik } from "formik"
 import * as Yup from "yup"
+import { useSnackbar } from "react-simple-snackbar"
 
 const RegisterContent = (props) => {
 
@@ -21,43 +22,47 @@ const RegisterContent = (props) => {
   })
 
   const { handleClick } = props
+  const { errors } = useSelector( state => state )
+  const [openSnackbar] = useSnackbar()
+
+
   const { name, email, password, confirmPassword } = formRegisterValues
   const configForm = [
     { 
       id: "input-name",
       placeholder: "Name",
-      iconName: "tag",
-      inputName: "name",
-      inputType: "text",
-      inputValue: name,
-      handleChange: handleRegisterInputChange,
+      icon: "tag",
+      name: "name",
+      type: "text",
+      value: name,
+      onChange: handleRegisterInputChange,
     },
     { 
       id: "input-email",
       placeholder: "Email",
-      iconName: "at",
-      inputName: "email",
-      inputType: "text",
-      inputValue: email,
-      handleChange: handleRegisterInputChange,
+      icon: "at",
+      name: "email",
+      type: "text",
+      value: email,
+      onChange: handleRegisterInputChange,
     },
     { 
       id: "input-password",
       placeholder: "Password",
-      iconName: "user secret",
-      inputName: "password",
-      inputType: "password",
-      inputValue: password,
-      handleChange: handleRegisterInputChange,
+      icon: "user secret",
+      name: "password",
+      type: "password",
+      value: password,
+      onChange: handleRegisterInputChange,
     },
     { 
       id: "input-confirmPassword",
       placeholder: "Repeat Password",
-      iconName: "user secret",
-      inputName: "confirmPassword",
-      inputType: "password",
-      inputValue: confirmPassword,
-      handleChange: handleRegisterInputChange,
+      icon: "user secret",
+      name: "confirmPassword",
+      type: "password",
+      value: confirmPassword,
+      onChange: handleRegisterInputChange,
     },
   ]
 
@@ -83,6 +88,9 @@ const RegisterContent = (props) => {
 
   const handleSubmit = () => {
     dispatch(startRegister( email, password, name ) );
+    if(errors) {
+      openSnackbar(errors.error)
+    }
   }
 
   return (
@@ -94,14 +102,8 @@ const RegisterContent = (props) => {
       <Form size="large">
         {map(configForm, (el, index) => (
           <InputField
-            id={el.id}
             key={index}
-            inputType={el.inputType}
-            placeholder={el.placeholder}
-            iconName={el.iconName}
-            inputName={el.inputName}
-            inputValue={el.inputValue}
-            handleChange={el.handleChange}
+            {...el}
           />
         ))}
         <div className="container-text-register" onClick={handleClick}>
