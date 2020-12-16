@@ -8,8 +8,10 @@ const Loading = (props) => {
 
   return (
     <div className="container-loading">
-      {map(Array(repetitions), () => (
-        props.children
+      {map(Array(repetitions), (el, index) => (
+        <div key={index}>
+          {props.children}
+        </div>
       ))}
     </div>
   )

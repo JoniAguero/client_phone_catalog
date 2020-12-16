@@ -20,7 +20,7 @@ export const Detail = () => {
 
   if ( loading ) {
     return (
-      <div className="container-detail-phone">
+      <div className="container-detail-phone-loading">
         <Loading repetitions={1}>
           <PlaceholderText />
         </Loading>
@@ -28,7 +28,6 @@ export const Detail = () => {
     );
   }
 
-  console.log(phoneSelected);
   return (
     <div className="container-detail-phone">
       { 

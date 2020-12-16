@@ -1,7 +1,8 @@
 import { map } from 'lodash';
-import React from 'react'
-import { Header, Image, Segment } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react'
+import { Breadcrumb, Header, Image, Transition } from 'semantic-ui-react';
 import  ItemFeature from './ItemFeature';
+import { useHistory } from "react-router-dom";
 import "./DetailPhone.css";
 
 const DetailPhone = (props) => {
@@ -42,26 +43,43 @@ const DetailPhone = (props) => {
       text: color
     }
   ]
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    setVisible(true)
+  }, [])
+
+  let history = useHistory();
+
+  const returnPage = () => {
+    history.push('/');
+  }
 
   return (
-    <div className="container-detail-phone">
-      <div className="container-image">
-        <Image src={phone.imageFileName} size='medium' />
-        <div className="description">
-        <Header as='h2'>Descripción</Header>
-          <p>
-            {phone.description}
-          </p>
+    <Transition visible={visible} animation='scale' duration={500}>
+      <div className="container-detail-phone">
+        <Breadcrumb size='massive'>
+          <Breadcrumb.Section link onClick={() => returnPage()}>Phones</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+          <Breadcrumb.Section link>{phone.name}</Breadcrumb.Section>
+        </Breadcrumb>
+        <div className="container-image">
+          <Image src={phone.imageFileName} size='medium' />
+          <div className="description">
+          <Header as='h2'>Descripción</Header>
+            <p>
+              {phone.description}
+            </p>
+          </div>
         </div>
+        <div className="container-features">
+          <div className="features">
+            {map(features, (item, index) => (
+              <ItemFeature key={index} title={item.title} text={item.text} />
+            ))}
+          </div>
+        </div>   
       </div>
-      <div className="container-features">
-        <div className="features">
-          {map(features, (item, index) => (
-            <ItemFeature key={index} title={item.title} text={item.text} />
-          ))}
-        </div>
-      </div>   
-    </div>
+    </Transition>
   )
 }
 

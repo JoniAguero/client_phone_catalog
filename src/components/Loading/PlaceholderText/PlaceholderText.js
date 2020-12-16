@@ -10,8 +10,8 @@ const PlaceholderText = () => {
         <Placeholder.Line />
       </Placeholder.Header>
       <Placeholder.Paragraph>
-      {map(Array(50), () => (
-        <Placeholder.Line />
+      {map(Array(25), (el, index) => (
+        <Placeholder.Line key={index}/>
       ))}
       </Placeholder.Paragraph>
     </Placeholder>

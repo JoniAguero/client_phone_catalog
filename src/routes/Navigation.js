@@ -19,8 +19,7 @@ export default function Navigation() {
               </route.layout>
             )}
           />
-        ))}
-      </Switch>
+        ))}      </Switch>
     </Router>
   );
 }

@@ -36,7 +36,7 @@ export const Home = () => {
       <Card.Group itemsPerRow={3} stackable doubling>
         { 
           phones.list.length === 0 ? <NoDataFound /> : 
-          phones.list.reverse().map(element => 
+          phones.list.map(element => 
             <CardPhone phone={element} key={element._id}/>
           )
         }

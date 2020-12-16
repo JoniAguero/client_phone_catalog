@@ -6,6 +6,7 @@
 }
 .container-image {
   display: flex;
+  margin-top: 50px;
 }
 
 .container-features {

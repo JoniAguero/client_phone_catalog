@@ -1,0 +1,15 @@
+.add-new-phone-button {
+  position: fixed;
+  top: 90%;
+  left: 95%;
+}
+
+.button-add-new-phone {
+  background-color: #e7a61a!important;
+}
+
+@media (max-width: 768px) {
+  .add-new-phone-button {
+    left: 85%;
+  }
+}
