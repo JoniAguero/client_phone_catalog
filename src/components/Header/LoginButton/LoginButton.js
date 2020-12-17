@@ -1,44 +1,46 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dropdown } from 'semantic-ui-react'
-import { uiOpenModal } from '../../../redux/actions/uiActions';
+import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Dropdown } from "semantic-ui-react"
+import { startLogout } from "../../../redux/actions/authActions"
+import { uiOpenModal } from "../../../redux/actions/uiActions"
 
 const LoginButton = () => {
-
-  const dispatch = useDispatch();
-  const { auth } = useSelector( state => state )
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state) => state)
 
   const handleClick = (type) => {
-
     switch (type) {
-      case 'login':
-        dispatch( uiOpenModal() );
-        break;
-    
+      case "login":
+        dispatch(uiOpenModal('auth', 'mini'))
+        break
+      case "logout":
+        dispatch(startLogout())
+        break
+
       default:
-        break;
+        break
     }
   }
 
   return (
     <>
-      {
-        auth.checking ? 
+      {!auth.logged ? (
         <Dropdown
-          direction='left'
+          direction="left"
           text="Login"
-          className='icon'
-          icon='user circle'
-          onClick={() => handleClick('login')}
-        /> :  
-        <Dropdown
-          direction='left'
-          text="Logout"
-          className='icon'
-          icon='user circle'
-          onClick={() => handleClick('logout')}
+          className="icon"
+          icon="user circle"
+          onClick={() => handleClick("login")}
         />
-       } 
+      ) : (
+        <Dropdown
+          direction="left"
+          text="Logout"
+          className="icon"
+          icon="user circle"
+          onClick={() => handleClick("logout")}
+        />
+      )}
     </>
   )
 }

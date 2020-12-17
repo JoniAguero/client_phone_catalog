@@ -2,14 +2,16 @@
 import { types } from '../types/index';
 
 const initialState = {
-  error: ''
+  error: '',
+  time: undefined
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.setError:
       return {
-        error: action.payload
+        error: action.payload,
+        time: Date.now()
       };
     default:
       return state;

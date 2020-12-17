@@ -2,7 +2,11 @@
 import { types } from '../types'
 
 const initialState = {
-  modalOpen: false,
+  modal: {
+    open: false,
+    typeModal: null,
+    sizeModal: null
+  },
 }
 
 export default (state = initialState, action) => {
@@ -10,13 +14,21 @@ export default (state = initialState, action) => {
     case types.uiOpenModal:
       return {
         ...state,
-        modalOpen: true,
+        modal : {
+          open: true,
+          typeModal: action.typeModal,
+          sizeModal: action.sizeModal
+        }
       }
 
     case types.uiCloseModal:
       return {
         ...state,
-        modalOpen: false,
+        modal : {
+          open: false,
+          typeModal: null,
+          sizeModal: null
+        }
       }
 
     default:

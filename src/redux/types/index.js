@@ -4,6 +4,7 @@ export const types = {
   uiCloseModal: '[ui] Close modal',
 
   setError: '[Error] Error detected',
+  unsetError: '[Error] Error clearned',
 
   fetchPhones: '[Phones] Fetch Phones',
   fetchPhonesSuccess: '[Phones] Fetch Success Phones',

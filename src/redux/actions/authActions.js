@@ -1,6 +1,7 @@
 import { fetchWithToken, fetchWithoutToken } from '../../services/fetch'
 import { types } from '../../redux/types'
 import { setError } from './errorsActions'
+import { uiCloseModal } from './uiActions'
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
@@ -17,6 +18,7 @@ export const startLogin = (email, password) => {
             name: body.name,
           })
         )
+        dispatch(uiCloseModal())
       } else {
         dispatch(setError(body.msg))
       }

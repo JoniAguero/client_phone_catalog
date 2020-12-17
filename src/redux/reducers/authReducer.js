@@ -1,8 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { types } from '../types'
+import { types } from "../types"
 
 const initialState = {
-  checking: true,
+  logged: false,
   uid: null,
   name: null,
 }
@@ -13,18 +13,20 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
-        checking: false,
+        logged: true,
       }
 
-    case types.authCheckingFinish:
+    case types.authloggedFinish:
       return {
         ...state,
-        checking: false,
+        logged: true,
       }
 
     case types.authLogout:
       return {
-        checking: false,
+        uid: null,
+        name: null,
+        logged: false,
       }
 
     default:

@@ -1,10 +1,18 @@
- 
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import routes from "./Routes";
-import { map } from "lodash";
+import React, { useEffect } from "react"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import routes from "./Routes"
+import { map } from "lodash"
+import { useDispatch, useSelector } from "react-redux"
+import { startChecking } from "../redux/actions/authActions"
 
 export default function Navigation() {
+  
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(startChecking())
+  }, [dispatch])
+
   return (
     <Router>
       <Switch>
@@ -19,7 +27,8 @@ export default function Navigation() {
               </route.layout>
             )}
           />
-        ))}      </Switch>
+        ))}{" "}
+      </Switch>
     </Router>
-  );
+  )
 }

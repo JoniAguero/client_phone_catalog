@@ -1,19 +1,17 @@
 import { Form, SubmitButton } from "formik-semantic-ui-react"
 import { map } from "lodash"
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useFormHook } from "../../../hooks/useForm"
-import { startRegister } from "../../../redux/actions/authActions"
-import InputField from "../../InputField/InputField"
+import { useDispatch } from "react-redux"
+import { useFormHook } from "../../../../hooks/useForm"
+import { startRegister } from "../../../../redux/actions/authActions"
+import FactoryField from "../../../utils/FactoryField"
 import "./RegisterContent.css"
 
 import { Formik } from "formik"
 import * as Yup from "yup"
-import { useSnackbar } from "react-simple-snackbar"
 
 const RegisterContent = (props) => {
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const [formRegisterValues, handleRegisterInputChange] = useFormHook({
     name: "",
     email: "",
@@ -22,13 +20,10 @@ const RegisterContent = (props) => {
   })
 
   const { handleClick } = props
-  const { errors } = useSelector( state => state )
-  const [openSnackbar] = useSnackbar()
-
 
   const { name, email, password, confirmPassword } = formRegisterValues
   const configForm = [
-    { 
+    {
       id: "input-name",
       placeholder: "Name",
       icon: "tag",
@@ -37,7 +32,7 @@ const RegisterContent = (props) => {
       value: name,
       onChange: handleRegisterInputChange,
     },
-    { 
+    {
       id: "input-email",
       placeholder: "Email",
       icon: "at",
@@ -46,7 +41,7 @@ const RegisterContent = (props) => {
       value: email,
       onChange: handleRegisterInputChange,
     },
-    { 
+    {
       id: "input-password",
       placeholder: "Password",
       icon: "user secret",
@@ -55,7 +50,7 @@ const RegisterContent = (props) => {
       value: password,
       onChange: handleRegisterInputChange,
     },
-    { 
+    {
       id: "input-confirmPassword",
       placeholder: "Repeat Password",
       icon: "user secret",
@@ -70,7 +65,7 @@ const RegisterContent = (props) => {
     name,
     email,
     password,
-    confirmPassword
+    confirmPassword,
   }
 
   const validationSchema = Yup.object({
@@ -87,24 +82,23 @@ const RegisterContent = (props) => {
   })
 
   const handleSubmit = () => {
-    dispatch(startRegister( email, password, name ) );
-    if(errors) {
-      openSnackbar(errors.error)
-    }
+    dispatch(startRegister(email, password, name))
   }
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={handleSubmit}
+      onSubmit={(_, { setSubmitting }) => {
+        handleSubmit()
+        setTimeout(() => {
+          setSubmitting(false)
+        }, 1000)
+      }}
     >
       <Form size="large">
         {map(configForm, (el, index) => (
-          <InputField
-            key={index}
-            {...el}
-          />
+          <FactoryField key={index} {...el} />
         ))}
         <div className="container-text-register" onClick={handleClick}>
           You already have an account ?
