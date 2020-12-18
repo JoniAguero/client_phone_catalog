@@ -5,6 +5,7 @@ import './CardPhone.css';
 import { camelCase } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { getPhoneById } from '../../redux/actions/phonesActions';
+import NoImage from "../../assets/images/noimage.png";
 
 const CardPhone = (props) => {
 
@@ -25,7 +26,7 @@ const CardPhone = (props) => {
   return (
     <Transition visible={visible} animation='scale' duration={500}>
       <Card className="card" onClick={() => navigateToDetail(phone)}>
-        <Image src={phone.imageFileName} wrapped ui={false} />
+        <Image src={phone.imageFileName ? phone.imageFileName : NoImage} wrapped ui={false} />
         <Card.Content>
           <Card.Header>{phone.name}</Card.Header>
           <Card.Meta>

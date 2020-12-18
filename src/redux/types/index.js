@@ -12,7 +12,9 @@ export const types = {
   fetchPhoneByID: '[Phones] Fetch Phone by ID',
   fetchPhoneSuccessById: '[Phones] Fetch Success Phone by ID',
 
-  authCheckingFinish: '[auth] Finish checking login state',
+  addNewPhone: '[Phones] Add New Phone',
+  addNewPhoneSuccess: '[Phones] Add New Phone Success',
+  
   authStartLogin: '[auth] Start login',
   authLogin: '[auth] Login',
   authStartRegister: '[auth] Start Register',

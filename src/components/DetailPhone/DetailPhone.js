@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Breadcrumb, Header, Image, Transition } from 'semantic-ui-react';
 import  ItemFeature from './ItemFeature';
 import { useHistory } from "react-router-dom";
+import NoImage from "../../assets/images/noimage.png";
 import "./DetailPhone.css";
 
 const DetailPhone = (props) => {
@@ -63,7 +64,7 @@ const DetailPhone = (props) => {
           <Breadcrumb.Section link>{phone.name}</Breadcrumb.Section>
         </Breadcrumb>
         <div className="container-image">
-          <Image src={phone.imageFileName} size='medium' />
+          <Image src={phone.imageFileName ? phone.imageFileName : NoImage} size='medium' />
           <div className="description">
           <Header as='h2'>Descripción</Header>
             <p>

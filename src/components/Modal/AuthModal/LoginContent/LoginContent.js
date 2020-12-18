@@ -18,11 +18,9 @@ const LoginContent = (props) => {
   const dispatch = useDispatch()
   const { errors } = useSelector( state => state )
 
-  useEffect(() => {
-    if(errors.error) {
-      openSnackbar(errors.error)
-    }
-  }, [errors.time])
+  // useEffect(() => {
+  //   openSnackbar(errors.error)
+  // }, [errors.time])
     
   const [openSnackbar] = useSnackbar()
 
@@ -50,6 +48,7 @@ const LoginContent = (props) => {
       icon: 'user secret',
       name: 'password',
       type: 'password',
+      autoComplete: 'on',
       value: password,
       onChange: handleLoginInputChange,
     },

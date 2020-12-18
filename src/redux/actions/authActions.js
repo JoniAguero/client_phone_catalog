@@ -1,16 +1,16 @@
-import { fetchWithToken, fetchWithoutToken } from '../../services/fetch'
-import { types } from '../../redux/types'
-import { setError } from './errorsActions'
-import { uiCloseModal } from './uiActions'
+import { fetchWithToken, fetchWithoutToken } from "../../services/fetch"
+import { types } from "../../redux/types"
+import { setError } from "./errorsActions"
+import { uiCloseModal } from "./uiActions"
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
-    const resp = await fetchWithoutToken('auth', { email, password }, 'POST')
+    const resp = await fetchWithoutToken("auth", { email, password }, "POST")
     const body = await resp.json()
     try {
       if (body.ok) {
-        localStorage.setItem('token', body.token)
-        localStorage.setItem('token-init-date', new Date().getTime())
+        localStorage.setItem("token", body.token)
+        localStorage.setItem("token-init-date", new Date().getTime())
 
         dispatch(
           login({
@@ -25,22 +25,21 @@ export const startLogin = (email, password) => {
     } catch (error) {
       dispatch(setError(error))
     }
-    
   }
 }
 
 export const startRegister = (email, password, name) => {
   return async (dispatch) => {
     const resp = await fetchWithoutToken(
-      'auth/new',
+      "auth/new",
       { email, password, name },
-      'POST'
+      "POST"
     )
     const body = await resp.json()
 
     if (body.ok) {
-      localStorage.setItem('token', body.token)
-      localStorage.setItem('token-init-date', new Date().getTime())
+      localStorage.setItem("token", body.token)
+      localStorage.setItem("token-init-date", new Date().getTime())
 
       dispatch(
         login({
@@ -52,14 +51,14 @@ export const startRegister = (email, password, name) => {
   }
 }
 
-export const startChecking = () => {
+export const isLogged = () => {
   return async (dispatch) => {
-    const resp = await fetchWithToken('auth/renew')
+    const resp = await fetchWithToken("auth/renew")
     const body = await resp.json()
 
     if (body.ok) {
-      localStorage.setItem('token', body.token)
-      localStorage.setItem('token-init-date', new Date().getTime())
+      localStorage.setItem("token", body.token)
+      localStorage.setItem("token-init-date", new Date().getTime())
 
       dispatch(
         login({
@@ -67,13 +66,9 @@ export const startChecking = () => {
           name: body.name,
         })
       )
-    } else {
-      dispatch(checkingFinish())
     }
   }
 }
-
-const checkingFinish = () => ({ type: types.authCheckingFinish })
 
 const login = (user) => ({
   type: types.authLogin,

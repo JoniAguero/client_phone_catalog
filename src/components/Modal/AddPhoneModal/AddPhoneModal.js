@@ -1,7 +1,7 @@
 import React from "react"
 import { map } from "lodash"
 import { useDispatch, useSelector } from "react-redux"
-import { Button, Modal } from "semantic-ui-react"
+import { Button, Modal, Segment } from "semantic-ui-react"
 import { useFormHook } from "../../../hooks/useForm"
 import { useSnackbar } from "react-simple-snackbar"
 import { Formik } from "formik"
@@ -10,6 +10,8 @@ import { Form, SubmitButton } from "formik-semantic-ui-react"
 import "./AddPhoneModal.css"
 import FactoryField from "../../utils/FactoryField"
 import { uiCloseModal } from "../../../redux/actions/uiActions"
+import UploadImage from "../../UploadImage"
+import { createPhone } from "../../../redux/actions/phonesActions"
 
 const AddPhoneModal = () => {
   const dispatch = useDispatch()
@@ -71,6 +73,7 @@ const AddPhoneModal = () => {
       icon: "tag",
       name: "name",
       type: "text",
+      focus: "true",
       value: name,
       onChange: handleLoginInputChange,
     },
@@ -192,8 +195,7 @@ const AddPhoneModal = () => {
   })
 
   const onHandleSubmit = () => {
-    console.log(formLoginValues);
-    // dispatch(startLogin(email, password))
+    dispatch(createPhone(formLoginValues))
   }
 
   return (
@@ -214,11 +216,14 @@ const AddPhoneModal = () => {
             {map(configForm, (el, index) => (
               <FactoryField key={index} {...el} />
             ))}
+            <Segment>
+              <UploadImage />
+            </Segment>
             <div className="button">
               <Button negative onClick={() => dispatch(uiCloseModal())}>
                 Cancel
               </Button>
-              <SubmitButton positive secondary>
+              <SubmitButton positive secondary onClick={onHandleSubmit}>
                 Create
               </SubmitButton>
             </div>
