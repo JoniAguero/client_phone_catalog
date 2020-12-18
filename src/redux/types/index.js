@@ -14,6 +14,9 @@ export const types = {
 
   addNewPhone: '[Phones] Add New Phone',
   addNewPhoneSuccess: '[Phones] Add New Phone Success',
+
+  deletePhone: '[Phones] Delete Phone',
+  deletePhoneSuccess: '[Phones] Delete Phone Success',
   
   authStartLogin: '[auth] Start login',
   authLogin: '[auth] Login',

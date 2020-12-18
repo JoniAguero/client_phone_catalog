@@ -1,6 +1,6 @@
 const baseUrl = 'http://localhost:1234/api'
 
-const fetchWithoutToken = (endpoint, data, method = "GET") => {
+const fetchWithoutToken = (endpoint, method = "GET", data) => {
   const url = `${baseUrl}/${endpoint}`
 
   if (method === "GET") {
@@ -16,7 +16,7 @@ const fetchWithoutToken = (endpoint, data, method = "GET") => {
   }
 }
 
-const fetchWithToken = (endpoint, data, method = "GET") => {
+const fetchWithToken = (endpoint, method = "GET", data) => {
   const url = `${baseUrl}/${endpoint}`
   const token = localStorage.getItem("token") || ""
 

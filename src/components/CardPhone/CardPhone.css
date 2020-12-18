@@ -4,5 +4,10 @@
 
 .card:hover {
   cursor: pointer;
-  transform: scale(1.1)!important;
+  transform: scale(1.03)!important;
+}
+
+.container-buttons {
+  display: flex;
+  justify-content: space-around;
 }

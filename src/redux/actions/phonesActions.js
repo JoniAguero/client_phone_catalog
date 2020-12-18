@@ -18,6 +18,10 @@ export const addNewPhoneSuccess = (phone) => ({
   type: types.addNewPhoneSuccess,
   payload: phone,
 })
+export const deletePhone = () => ({ type: types.deletePhone })
+export const deletePhoneSuccess = () => ({
+  type: types.deletePhoneSuccess
+})
 
 export const getPhones = () => {
   return async (dispatch) => {
@@ -47,12 +51,30 @@ export const getPhoneById = (id) => {
 
 export const createPhone = (form) => {
   return async (dispatch) => {
-    const resp = await fetchWithToken("phones", {...form}, "POST")
+    dispatch(addNewPhone())
+    const resp = await fetchWithToken("phones", "POST", {...form})
+    const body = await resp.json()
+    try {
+      if (body.ok) {
+        dispatch(addNewPhoneSuccess())
+        dispatch(getPhones())
+        dispatch(uiCloseModal())
+      } else {
+        dispatch(setError(body.msg))
+      }
+    } catch (error) {
+      dispatch(setError(error))
+    }
+  }
+}
+
+export const removePhone = (id) => {
+  return async (dispatch) => {
+    const resp = await fetchWithToken(`phones/${id}`, "DELETE")
     const body = await resp.json()
     try {
       if (body.ok) {
         dispatch(getPhones())
-        dispatch(uiCloseModal())
       } else {
         dispatch(setError(body.msg))
       }

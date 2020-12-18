@@ -5,7 +5,7 @@ import { uiCloseModal } from "./uiActions"
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
-    const resp = await fetchWithoutToken("auth", { email, password }, "POST")
+    const resp = await fetchWithoutToken("auth", "POST", { email, password })
     const body = await resp.json()
     try {
       if (body.ok) {
@@ -32,8 +32,8 @@ export const startRegister = (email, password, name) => {
   return async (dispatch) => {
     const resp = await fetchWithoutToken(
       "auth/new",
-      { email, password, name },
-      "POST"
+      "POST",
+      { email, password, name }
     )
     const body = await resp.json()
 

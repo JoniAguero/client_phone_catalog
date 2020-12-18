@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { Card, Image, Transition } from 'semantic-ui-react';
-import { useHistory } from "react-router-dom";
-import './CardPhone.css';
-import { camelCase } from 'lodash';
-import { useDispatch } from 'react-redux';
-import { getPhoneById } from '../../redux/actions/phonesActions';
-import NoImage from "../../assets/images/noimage.png";
+import React, { useEffect, useState } from "react"
+import { Button, Card, Image, Popup, Transition } from "semantic-ui-react"
+import { useHistory } from "react-router-dom"
+import "./CardPhone.css"
+import { camelCase } from "lodash"
+import { useDispatch, useSelector } from "react-redux"
+import { getPhoneById, removePhone } from "../../redux/actions/phonesActions"
+import NoImage from "../../assets/images/noimage.png"
 
 const CardPhone = (props) => {
-
-  const { phone} = props;
+  const { phone } = props
   const [visible, setVisible] = useState(false)
+  const { auth } = useSelector((state) => state)
   const dispatch = useDispatch()
-  let history = useHistory();
+  let history = useHistory()
 
   useEffect(() => {
     setVisible(true)
@@ -20,25 +20,46 @@ const CardPhone = (props) => {
 
   const navigateToDetail = (phone) => {
     dispatch(getPhoneById(phone._id))
-    history.push(`${camelCase(phone.name)}`);
+    history.push(`${camelCase(phone.name)}`)
+  }
+
+  const handleEditPhone = (phone) => {
+    console.log(phone);
+  }
+
+  const handleDeletePhone = (phone) => {
+    dispatch(removePhone(phone._id))
   }
 
   return (
-    <Transition visible={visible} animation='scale' duration={500}>
-      <Card className="card" onClick={() => navigateToDetail(phone)}>
-        <Image src={phone.imageFileName ? phone.imageFileName : NoImage} wrapped ui={false} />
+    <Transition visible={visible} animation="scale" duration={500}>
+      <Card className="card">
+        <Image
+          src={phone.imageFileName ? phone.imageFileName : NoImage}
+          wrapped
+          ui={false}
+          onClick={() => navigateToDetail(phone)}
+        />
         <Card.Content>
           <Card.Header>{phone.name}</Card.Header>
           <Card.Meta>
-            <span className='date'>{phone.manufacturer}</span>
+            <span className="date">{phone.manufacturer}</span>
           </Card.Meta>
           <Card.Description>
             {`${phone.description.slice(0, 100)}...`}
           </Card.Description>
         </Card.Content>
+        {auth.logged && (
+          <Card.Content extra>
+            <div className="container-buttons">
+              <Popup content='Edit' trigger={<Button circular color='green' icon='edit' onClick={() => handleEditPhone(phone)}/>} />
+              <Popup content='Delete' trigger={<Button circular color='red' icon='trash' onClick={() => handleDeletePhone(phone)}/>} />
+            </div>
+          </Card.Content>
+        )}
       </Card>
     </Transition>
   )
 }
 
-export default CardPhone;
+export default CardPhone
