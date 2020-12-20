@@ -1,14 +1,15 @@
 # Client Phone Catalog :rocket:
 
-Client Phone Catalog it's a small project that has been built with React. It connects to a NodeJS API and it is allowed to make CRUD requests.
+Client Phone Catalog it's a small project that has been built with React. It connects to a NodeJS API and it is allowed to make CRUD requests. Repo [Server Phone Catalog](https://github.com/JoniAguero/server-phone-catalog)
 
-Packages: React 17, Redux, Formik & Yup, Semantic React, Lodash.
+Libraries: React 17, Redux, Formik & Yup, Semantic React, Lodash.
 
 CI/CD: [CircleCi](https://circleci.com/) & [Netlify](https://www.netlify.com/)
 
 Tests: [Jest](https://jestjs.io/), [Enzyme](https://enzymejs.github.io/enzyme/), [Cypress.io](https://www.cypress.io/)
 
-App Preview: [Phone Catalog](https://client-phone-catalog.netlify.app/)
+APP Preview: [APP hosted by Netfily](https://client-phone-catalog.netlify.app/)
+API Preview: [API hosted by Heroku](https://api-phone-catalog.herokuapp.com/)
 
 ## Installation
 
@@ -20,7 +21,7 @@ cd /app
 npm start
 ```
 
-## Libraries
+## Dependencies
 
 ```
   "@testing-library/jest-dom": "^5.11.6",
