@@ -8,7 +8,7 @@ CI/CD: [CircleCi](https://circleci.com/) & [Netlify](https://www.netlify.com/)
 
 Tests: [Jest](https://jestjs.io/), [Enzyme](https://enzymejs.github.io/enzyme/), [Cypress.io](https://www.cypress.io/)
 
-APP Preview: [APP hosted by Netfily](https://client-phone-catalog.netlify.app/)
+APP Preview: [APP hosted by Netfily](https://client-phone-catalog.netlify.app/)  
 API Preview: [API hosted by Heroku](https://api-phone-catalog.herokuapp.com/)
 
 ## Installation
