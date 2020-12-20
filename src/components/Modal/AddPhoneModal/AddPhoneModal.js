@@ -1,9 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 import { map } from "lodash"
 import { useDispatch, useSelector } from "react-redux"
 import { Button, Modal, Segment } from "semantic-ui-react"
 import { useFormHook } from "../../../hooks/useForm"
-import { useSnackbar } from "react-simple-snackbar"
 import { Formik } from "formik"
 import * as Yup from "yup"
 import { Form, SubmitButton } from "formik-semantic-ui-react"
@@ -11,27 +10,31 @@ import "./AddPhoneModal.css"
 import FactoryField from "../../utils/FactoryField"
 import { uiCloseModal } from "../../../redux/actions/uiActions"
 import UploadImage from "../../UploadImage"
-import { createPhone } from "../../../redux/actions/phonesActions"
+import { createPhone, editPhone } from "../../../redux/actions/phonesActions"
+import FileUploadContext from "../../../contexts/FileUploadContext"
 
 const AddPhoneModal = () => {
+
   const dispatch = useDispatch()
+  const { ui, phones } = useSelector((state) => state)
+  const phoneSelected = phones.phoneSelected
+  const [file, setFile] = useState(null);
 
-  const [openSnackbar] = useSnackbar()
-
-  const [formLoginValues, handleLoginInputChange] = useFormHook({
-    name: "",
-    price: "",
-    manufacturer: "",
-    description: "",
-    color: "",
-    imageFileName: "",
-    screen: "",
-    processor: "",
-    ram: "",
-    cameraBack: "",
-    cameraFront: "",
-    batery: "",
-    storage: "",
+  const [formValues, handleInputChange] = useFormHook({
+    name: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.name,
+    price: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.price,
+    manufacturer: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.manufacturer,
+    description: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.description,
+    color: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.color,
+    imageFileName: ui.modal.typeModal === 'addPhone'
+      ? '' : phoneSelected.imageFileName,
+    screen: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.screen,
+    processor: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.processor,
+    ram: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.ram,
+    cameraBack: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.cameraBack,
+    cameraFront: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.cameraFront,
+    batery: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.batery,
+    storage: ui.modal.typeModal === 'addPhone' ? '' : phoneSelected.storage
   })
 
   const {
@@ -48,7 +51,7 @@ const AddPhoneModal = () => {
     cameraFront,
     batery,
     storage,
-  } = formLoginValues
+  } = formValues
 
   const initialValues = {
     name,
@@ -73,9 +76,8 @@ const AddPhoneModal = () => {
       icon: "tag",
       name: "name",
       type: "text",
-      focus: "true",
       value: name,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-manufacturer",
@@ -84,7 +86,7 @@ const AddPhoneModal = () => {
       name: "manufacturer",
       type: "text",
       value: manufacturer,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-price",
@@ -93,7 +95,7 @@ const AddPhoneModal = () => {
       name: "price",
       type: "number",
       value: price,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-description",
@@ -102,7 +104,7 @@ const AddPhoneModal = () => {
       name: "description",
       type: "textarea",
       value: description,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-screen",
@@ -111,7 +113,7 @@ const AddPhoneModal = () => {
       name: "screen",
       type: "text",
       value: screen,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-processor",
@@ -120,7 +122,7 @@ const AddPhoneModal = () => {
       name: "processor",
       type: "text",
       value: processor,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-ram",
@@ -129,7 +131,7 @@ const AddPhoneModal = () => {
       name: "ram",
       type: "text",
       value: ram,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-camera-back",
@@ -138,7 +140,7 @@ const AddPhoneModal = () => {
       name: "cameraBack",
       type: "text",
       value: cameraBack,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-camera-front",
@@ -147,7 +149,7 @@ const AddPhoneModal = () => {
       name: "cameraFront",
       type: "text",
       value: cameraFront,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-batery",
@@ -156,7 +158,7 @@ const AddPhoneModal = () => {
       name: "batery",
       type: "text",
       value: batery,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-storage",
@@ -165,7 +167,7 @@ const AddPhoneModal = () => {
       name: "storage",
       type: "text",
       value: storage,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
     {
       id: "input-color",
@@ -174,7 +176,7 @@ const AddPhoneModal = () => {
       name: "color",
       type: "text",
       value: color,
-      onChange: handleLoginInputChange,
+      onChange: handleInputChange,
     },
   ]
 
@@ -195,12 +197,34 @@ const AddPhoneModal = () => {
   })
 
   const onHandleSubmit = () => {
-    dispatch(createPhone(formLoginValues))
+    if (ui.modal.typeModal === "addPhone") {
+      if(file) {
+        if(file) {
+          const formData = new FormData();
+          formData.append('file', file);
+          dispatch(createPhone(formValues, formData));
+        } else {
+          dispatch(createPhone(formValues, null))
+        }
+      }
+    } else {
+      if(file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        dispatch(editPhone(phoneSelected._id, formValues, formData));
+      } else {
+        dispatch(editPhone(phoneSelected._id, formValues, null))
+      }
+    }
   }
 
   return (
     <>
-      <Modal.Header>Create New phone</Modal.Header>
+      <Modal.Header>
+        {ui.modal.typeModal === "addPhone"
+          ? "Create New phone"
+          : `Edit Phone: ${phoneSelected.name}`}
+      </Modal.Header>
       <Modal.Content>
         <Formik
           initialValues={initialValues}
@@ -217,14 +241,16 @@ const AddPhoneModal = () => {
               <FactoryField key={index} {...el} />
             ))}
             <Segment>
-              <UploadImage />
+              <FileUploadContext.Provider value={{ file, setFile }}>
+                <UploadImage />
+              </FileUploadContext.Provider>
             </Segment>
             <div className="button">
               <Button negative onClick={() => dispatch(uiCloseModal())}>
                 Cancel
               </Button>
               <SubmitButton positive secondary onClick={onHandleSubmit}>
-                Create
+                {ui.modal.typeModal === "addPhone" ? "Create" : `Edit`}
               </SubmitButton>
             </div>
           </Form>

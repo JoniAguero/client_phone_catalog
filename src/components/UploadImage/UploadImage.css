@@ -19,10 +19,12 @@
   z-index: 1;
 }
 
-
 .container-image-upload {
-  margin: 5px 0px;
   text-align: center;
+}
+
+.container-image-uploaded {
+  padding: 10px;
 }
 
 .btn-upload {
@@ -37,7 +39,7 @@
   z-index: 2;
 }
 
-.publishing > p {
+.uploading > p {
   margin-top: 80px;
   font-size: 18px;
 }

@@ -22,13 +22,21 @@ export default (state = initialState, action) => {
       return {
         ...state
       }
-
     case types.fetchPhoneSuccessById:
       return {
         ...state,
         phoneSelected: action.payload
       }
-
+    case types.selectPhone:
+      return {
+        ...state,
+        phoneSelected: action.payload
+      }
+    case types.uploadImagePhoneSuccess:
+      return {
+        ...state,
+        list: [...state.list]
+      }
     default:
       return state
   }

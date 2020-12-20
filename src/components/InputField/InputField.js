@@ -8,8 +8,6 @@ const InputField = (props) => {
     <div className="container-input">
       <Input
         {...props}
-        focus
-        fluid
         errorPrompt
       />
     </div>

@@ -7,6 +7,10 @@
 .container-image {
   display: flex;
   margin-top: 50px;
+  margin-left: 25px;
+}
+.description-no-image {
+  margin-left: 50px;
 }
 
 .container-features {

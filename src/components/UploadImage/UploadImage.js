@@ -1,56 +1,35 @@
-import React, { useState, useCallback } from "react";
-import { Icon, Button, Dimmer, Loader, Image } from "semantic-ui-react";
-import { useSnackbar } from "react-simple-snackbar";
-import { useDropzone } from "react-dropzone";
-import "./UploadImage.css";
+import React, { useState, useCallback, useContext } from "react"
+import { Icon, Dimmer, Loader, Image } from "semantic-ui-react"
+import { useDropzone } from "react-dropzone"
+import "./UploadImage.css"
+import FileUploadContext from "../../contexts/FileUploadContext";
 
-export default function UploadImage() {
+export default function UploadImage(props) {
 
-  const [fileUpload, setFileUpload] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [openSnackbar] = useSnackbar()
+  const { setFile } = useContext(FileUploadContext);
+  const [fileUpload, setFileUpload] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const onDrop = useCallback((acceptedFile) => {
-    const file = acceptedFile[0];
+    setIsLoading(true)
+    const file = acceptedFile[0]
     setFileUpload({
       type: "image",
       file,
       preview: URL.createObjectURL(file),
-    });
-  });
+    })
+    setFile(file)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000);
+  })
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png",
     noKeyboard: true,
     multiple: false,
     onDrop,
-  });
-
-  const onClose = () => {
-    setIsLoading(false);
-    setFileUpload(null);
-  };
-
-  const onPublish = async () => {
-    try {
-      setIsLoading(true);
-      // const result = await publish({
-      //   variables: {
-      //     file: fileUpload.file,
-      //   },
-      // });
-      // const { data } = result;
-
-      if (true) {
-        openSnackbar('Error. Something has happened :(')
-        isLoading(false);
-      } else {
-        onClose();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  })
 
   return (
     <>
@@ -69,21 +48,18 @@ export default function UploadImage() {
       </div>
 
       {fileUpload?.type === "image" && (
-        <Image src={`${fileUpload.preview}`} centered size='medium'/>
-      )}
-
-      {fileUpload && (
-        <Button className="btn-upload btn-action" onClick={onPublish}>
-          Publicar
-        </Button>
+        <div {...getRootProps()} className="dropzone">
+          <div className="container-image-uploaded">
+            <Image src={`${fileUpload.preview}`} centered size="medium" />
+          </div>
+        </div>
       )}
 
       {isLoading && (
-        <Dimmer active className="publishing">
+        <Dimmer active className="uploading">
           <Loader />
-          <p>Publicando...</p>
         </Dimmer>
       )}
     </>
-  );
+  )
 }

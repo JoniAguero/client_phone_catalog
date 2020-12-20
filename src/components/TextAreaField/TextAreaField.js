@@ -8,8 +8,6 @@ const TextAreaField = (props) => {
     <div className="container-textarea">
       <TextArea
         {...props}
-        focus
-        fluid
         errorPrompt
       />
     </div>

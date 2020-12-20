@@ -4,13 +4,16 @@ import { useHistory } from "react-router-dom"
 import "./CardPhone.css"
 import { camelCase } from "lodash"
 import { useDispatch, useSelector } from "react-redux"
-import { getPhoneById, removePhone } from "../../redux/actions/phonesActions"
+import { getPhoneById, removePhone, selectPhone } from "../../redux/actions/phonesActions"
 import NoImage from "../../assets/images/noimage.png"
+import { useSnackbar } from 'react-simple-snackbar'
+import { uiOpenModal } from "../../redux/actions/uiActions"
 
 const CardPhone = (props) => {
   const { phone } = props
   const [visible, setVisible] = useState(false)
   const { auth } = useSelector((state) => state)
+  const [openSnackbar] = useSnackbar()
   const dispatch = useDispatch()
   let history = useHistory()
 
@@ -24,11 +27,14 @@ const CardPhone = (props) => {
   }
 
   const handleEditPhone = (phone) => {
-    console.log(phone);
+    if(!phone.isModifiable) return openSnackbar('This phone cannot be modified');
+    dispatch(selectPhone(phone))
+    dispatch(uiOpenModal('editPhone', 'small'))
   }
 
   const handleDeletePhone = (phone) => {
-    dispatch(removePhone(phone._id))
+    if(!phone.isModifiable) return openSnackbar('This phone cannot be deleted');
+    dispatch(removePhone(phone._id));
   }
 
   return (

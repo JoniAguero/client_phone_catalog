@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:1234/api'
+const baseUrl = "http://localhost:1234/api"
 
 const fetchWithoutToken = (endpoint, method = "GET", data) => {
   const url = `${baseUrl}/${endpoint}`
@@ -39,7 +39,18 @@ const fetchWithToken = (endpoint, method = "GET", data) => {
   }
 }
 
-export {
-  fetchWithoutToken,
-  fetchWithToken
+
+const fetchFormData = (endpoint, formData) => {
+  const url = `${baseUrl}/${endpoint}`
+  const token = localStorage.getItem("token") || ""
+
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "x-token": token,
+    },
+    body: formData
+  })
 }
+
+export { fetchWithoutToken, fetchWithToken, fetchFormData }

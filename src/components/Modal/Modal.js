@@ -7,9 +7,21 @@ import AuthModal from "./AuthModal"
 import AddPhoneModal from "./AddPhoneModal"
 
 const ModalComponent = () => {
-
-  const { ui } = useSelector((state) => state)
+  const { ui, phones } = useSelector((state) => state)
   const dispatch = useDispatch()
+
+  const getTypeModal = () => {
+    switch (ui.modal.typeModal) {
+      case "auth":
+        return <AuthModal />
+      case "addPhone":
+        return <AddPhoneModal />
+      case "editPhone":
+        return <AddPhoneModal />
+      default:
+        break
+    }
+  }
 
   return (
     <Modal
@@ -17,7 +29,7 @@ const ModalComponent = () => {
       open={ui.modal.open}
       onClose={() => dispatch(uiCloseModal())}
     >
-      { ui.modal.typeModal === 'auth' ? <AuthModal /> : <AddPhoneModal /> }
+      {getTypeModal()}
     </Modal>
   )
 }
