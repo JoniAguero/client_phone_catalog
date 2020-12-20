@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:1234/api"
+const baseUrl = "https://api-phone-catalog.herokuapp.com/api"
 
 const fetchWithoutToken = (endpoint, method = "GET", data) => {
   const url = `${baseUrl}/${endpoint}`
