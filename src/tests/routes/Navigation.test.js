@@ -12,12 +12,24 @@ const middlewares = [thunk]
 const mockStore = configureStore(middlewares)
 
 const initialState = {
+  auth: {
+    logged: false,
+    uid: null,
+    name: null
+  },
   phones: {
     list: [],
     phoneSelected: null
   },
   errors: {
     error: {}
+  },
+  ui: {
+    modal: {
+      open: false,
+      typeModal: null,
+      sizeModal: null
+    }
   }
 }
 

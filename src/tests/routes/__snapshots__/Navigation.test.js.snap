@@ -33,6 +33,35 @@ Array [
         </h2>
       </a>
     </div>
+    <div
+      aria-expanded={false}
+      className="ui dropdown icon"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onMouseDown={[Function]}
+      role="listbox"
+      tabIndex={0}
+    >
+      <div
+        aria-atomic={true}
+        aria-live="polite"
+        className="divider text"
+        role="alert"
+      >
+        Login
+      </div>
+      <i
+        aria-hidden="true"
+        className="user circle icon"
+        onClick={[Function]}
+      />
+      <div
+        className="left menu transition"
+      />
+    </div>
   </div>,
   <div
     className="ui container layout-basic"
@@ -284,5 +313,23 @@ Array [
       </div>
     </div>
   </div>,
+  <div
+    className="add-new-phone-button"
+  >
+    <button
+      className="ui circular icon disabled button button-add-new-phone"
+      disabled={true}
+      onClick={[Function]}
+      tabIndex={-1}
+    >
+      <i
+        aria-hidden="true"
+        className="add icon"
+        onClick={[Function]}
+      />
+    </button>
+  </div>,
+  "",
+  "",
 ]
 `;
