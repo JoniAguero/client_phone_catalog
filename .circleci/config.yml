@@ -29,4 +29,6 @@ jobs:
 
       - run: npm build
 
-      - run: npm run netlify:deploy
+      - run:
+        name: Deploy
+        command: curl -X POST -d {} ${hook}
