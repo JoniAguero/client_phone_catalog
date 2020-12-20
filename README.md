@@ -8,6 +8,8 @@ CI/CD: [CircleCi](https://circleci.com/) & [Netlify](https://www.netlify.com/)
 
 Tests: [Jest](https://jestjs.io/), [Enzyme](https://enzymejs.github.io/enzyme/), [Cypress.io](https://www.cypress.io/)
 
+App Preview: [Phone Catalog](https://client-phone-catalog.netlify.app/)
+
 ## Installation
 
 Use the package manager [npm](https://www.npmjs.com/) to install the app.
