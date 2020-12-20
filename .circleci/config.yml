@@ -30,5 +30,5 @@ jobs:
       - run: npm build
 
       - run:
-        name: Deploy
-        command: curl -X POST -d {} ${hook}
+          name: Deploy
+          command: curl -X POST -d {} ${hook}
