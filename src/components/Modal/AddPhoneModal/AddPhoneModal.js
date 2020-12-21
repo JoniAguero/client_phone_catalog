@@ -198,20 +198,18 @@ const AddPhoneModal = () => {
 
   const onHandleSubmit = () => {
     if (ui.modal.typeModal === "addPhone") {
-      if(file) {
-        if(file) {
-          const formData = new FormData();
-          formData.append('file', file);
-          dispatch(createPhone(formValues, formData));
-        } else {
-          dispatch(createPhone(formValues, null))
-        }
+      if (file) {
+        const formData = new FormData()
+        formData.append("file", file)
+        dispatch(createPhone(formValues, formData))
+      } else {
+        dispatch(createPhone(formValues, null))
       }
     } else {
-      if(file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        dispatch(editPhone(phoneSelected._id, formValues, formData));
+      if (file) {
+        const formData = new FormData()
+        formData.append("file", file)
+        dispatch(editPhone(phoneSelected._id, formValues, formData))
       } else {
         dispatch(editPhone(phoneSelected._id, formValues, null))
       }
