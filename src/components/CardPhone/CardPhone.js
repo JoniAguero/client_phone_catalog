@@ -39,7 +39,7 @@ const CardPhone = (props) => {
 
   return (
     <Transition visible={visible} animation="scale" duration={500}>
-      <Card className="card">
+      <Card className="card" data-cy="card-phone">
         <Image
           src={phone.imageFileName ? phone.imageFileName : NoImage}
           wrapped
@@ -47,7 +47,7 @@ const CardPhone = (props) => {
           onClick={() => navigateToDetail(phone)}
         />
         <Card.Content>
-          <Card.Header>{phone.name}</Card.Header>
+          <Card.Header data-cy="card-phone-name">{phone.name}</Card.Header>
           <Card.Meta>
             <span className="date">{phone.manufacturer}</span>
           </Card.Meta>

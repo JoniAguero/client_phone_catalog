@@ -8,7 +8,7 @@ const LinkHeader = () => {
         <Link to="/">
           <Header as='h2'>
             <Icon name='mobile alternate' />
-            <Header.Content>
+            <Header.Content data-cy="header-title">
               Phone Catalog
               <Header.Subheader>The latest phones on the market are here</Header.Subheader>
             </Header.Content>

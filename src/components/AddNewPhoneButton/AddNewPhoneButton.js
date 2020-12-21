@@ -21,6 +21,7 @@ const AddNewPhoneButton = () => {
           icon="add"
           className="button-add-new-phone"
           onClick={handleClick}
+          data-cy="add-phone-button-enabled"
         />
       ) : (
         <Button
@@ -28,6 +29,7 @@ const AddNewPhoneButton = () => {
           icon="add"
           className="button-add-new-phone"
           disabled
+          data-cy="add-phone-button-disabled"
         />
       )}
     </div>

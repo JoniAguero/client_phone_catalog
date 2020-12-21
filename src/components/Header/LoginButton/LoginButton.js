@@ -30,7 +30,9 @@ const LoginButton = () => {
           text="Login"
           className="icon"
           icon="user circle"
-          onClick={() => handleClick("login")}
+          data-cy="login-button"
+          onClick={() => handleClick("login")
+        }
         />
       ) : (
         <Dropdown

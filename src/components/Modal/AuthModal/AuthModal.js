@@ -16,7 +16,7 @@ const AuthModal = () => {
   return (
     <>
       <Modal.Header>Welcome!</Modal.Header>
-      <Modal.Content>
+      <Modal.Content data-cy="auth-modal">
         {modal === "loginModal" ? (
           <LoginContent handleClick={handleClickChangeModal} />
         ) : (

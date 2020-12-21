@@ -96,11 +96,15 @@ const RegisterContent = (props) => {
         }, 1000)
       }}
     >
-      <Form size="large">
+      <Form size="large" data-cy="auth-register-modal">
         {map(configForm, (el, index) => (
           <FactoryField key={index} {...el} />
         ))}
-        <div className="container-text-register" onClick={handleClick}>
+        <div
+          className="container-text-register"
+          onClick={handleClick}
+          data-cy="button-to-login"
+        >
           You already have an account ?
         </div>
         <div className="button">
