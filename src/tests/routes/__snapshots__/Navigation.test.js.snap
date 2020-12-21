@@ -22,6 +22,7 @@ Array [
           />
           <div
             className="content"
+            data-cy="header-title"
           >
             Phone Catalog
             <div
@@ -36,6 +37,7 @@ Array [
     <div
       aria-expanded={false}
       className="ui dropdown icon"
+      data-cy="login-button"
       onBlur={[Function]}
       onChange={[Function]}
       onClick={[Function]}
@@ -318,6 +320,7 @@ Array [
   >
     <button
       className="ui circular icon disabled button button-add-new-phone"
+      data-cy="add-phone-button-disabled"
       disabled={true}
       onClick={[Function]}
       tabIndex={-1}
